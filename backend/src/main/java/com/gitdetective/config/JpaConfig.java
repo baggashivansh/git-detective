@@ -5,12 +5,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Baseline JPA configuration.
+ * JPA configuration for knowledge-base repositories and assistant conversation memory.
  *
- * <p>No business entities are registered in Phase 1. Auditing is enabled so future entities can
- * inherit created/updated timestamps without additional infrastructure work.
+ * <p>{@code @EnableJpaRepositories} replaces Boot's default repository scan, so every repository
+ * package must be listed explicitly.
  */
 @Configuration
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = "com.gitdetective.repository")
+@EnableJpaRepositories(
+        basePackages = {"com.gitdetective.repository", "com.gitdetective.assistant.memory"})
 public class JpaConfig {}
