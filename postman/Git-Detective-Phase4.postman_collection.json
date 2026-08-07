@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "Git Detective — Phase 4",
+    "description": "Evidence-backed investigation assistant. Consumes Evidence Engine only.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "investigationId", "value": "" },
+    { "key": "conversationId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Create Conversation",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"investigationId\": \"{{investigationId}}\"\n}"
+        },
+        "url": "{{baseUrl}}/assistant/conversations"
+      }
+    },
+    {
+      "name": "List Conversations",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/assistant/conversations?investigationId={{investigationId}}"
+      }
+    },
+    {
+      "name": "Get Conversation",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/assistant/conversations/{{conversationId}}"
+      }
+    },
+    {
+      "name": "Ask Question",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"Who owns this module?\"\n}"
+        },
+        "url": "{{baseUrl}}/assistant/conversations/{{conversationId}}/messages"
+      }
+    },
+    {
+      "name": "Suggestions",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/assistant/conversations/{{conversationId}}/suggestions"
+      }
+    },
+    {
+      "name": "Export Markdown",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/assistant/conversations/{{conversationId}}/export?format=markdown"
+      }
+    }
+  ]
+}

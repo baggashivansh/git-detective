@@ -1,0 +1,38 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  flyway:
+    enabled: true
+
+gitdetective:
+  application:
+    version: 1.0.0
+  cors:
+    allowed-origins: http://localhost:3000
+  analysis:
+    workspace-root: ${java.io.tmpdir}/git-detective-test-workspaces
+    clone-timeout-seconds: 60
+    max-repository-size-bytes: 52428800
+    max-files: 5000
+    max-commits: 1000
+  ai:
+    stub-mode: true
+    api-key:
+    model: gpt-4o-mini
+    temperature: 0.0
+    max-tokens: 1024
+    base-url: https://api.openai.com/v1
+    provider: openai-compatible
+    connect-timeout-ms: 5000
+    read-timeout-ms: 30000
+  security:
+    rate-limit:
+      max-requests: 1000
+      window-seconds: 60
+
+logging:
+  level:
+    root: WARN
+    com.gitdetective: INFO

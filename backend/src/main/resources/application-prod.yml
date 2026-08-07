@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+  jackson:
+    serialization:
+      indent-output: false
+
+logging:
+  level:
+    root: WARN
+    com.gitdetective: INFO
+    org.springframework.security: WARN
+
+gitdetective:
+  ai:
+    stub-mode: ${AI_STUB_MODE:false}
+  security:
+    rate-limit:
+      max-requests: ${RATE_LIMIT_MAX_REQUESTS:120}
+      window-seconds: ${RATE_LIMIT_WINDOW_SECONDS:60}

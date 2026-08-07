@@ -1,0 +1,62 @@
+{
+  "info": {
+    "name": "Git Detective — Phase 3",
+    "description": "Deterministic investigation engine endpoints. No AI.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "repositoryId", "value": "" },
+    { "key": "investigationId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Create Investigation",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"repositoryId\": \"{{repositoryId}}\",\n  \"targetType\": \"CLASS\",\n  \"targetRef\": \"com.example.Demo\"\n}"
+        },
+        "url": "{{baseUrl}}/investigations"
+      }
+    },
+    {
+      "name": "List Investigations",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations" }
+    },
+    {
+      "name": "Get Investigation",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}" }
+    },
+    {
+      "name": "Timeline",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/timeline" }
+    },
+    {
+      "name": "Ownership",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/ownership" }
+    },
+    {
+      "name": "Impact",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/impact" }
+    },
+    {
+      "name": "Relationships",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/relationships" }
+    },
+    {
+      "name": "Report JSON",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/report?format=json" }
+    },
+    {
+      "name": "Report Markdown",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/report?format=markdown" }
+    },
+    {
+      "name": "Report HTML",
+      "request": { "method": "GET", "url": "{{baseUrl}}/investigations/{{investigationId}}/report?format=html" }
+    }
+  ]
+}

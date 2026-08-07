@@ -1,0 +1,8 @@
+# Default owners for the Git Detective monorepo
+* @shivanshbagga
+
+/backend/ @shivanshbagga
+/frontend/ @shivanshbagga
+/docs/ @shivanshbagga
+/docker/ @shivanshbagga
+/.github/ @shivanshbagga

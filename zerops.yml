@@ -1,0 +1,47 @@
+zerops:
+  - setup: backend
+    build:
+      base: java@21
+      buildCommands:
+        - cd backend && mvn -q -DskipTests package
+      deployFiles:
+        - backend/target/git-detective-backend.jar
+      cache:
+        - backend/.m2
+    deploy:
+      readinessCheck:
+        httpGet:
+          port: 8080
+          path: /health
+    run:
+      base: java@21
+      ports:
+        - port: 8080
+          httpSupport: true
+      start: java -jar backend/target/git-detective-backend.jar
+      envVariables:
+        SERVER_PORT: "8080"
+        APP_VERSION: "1.0.0"
+        SPRING_PROFILES_ACTIVE: prod
+
+  - setup: frontend
+    build:
+      base: nodejs@22
+      buildCommands:
+        - cd frontend && npm ci && npm run build
+      deployFiles:
+        - frontend/.next/standalone
+        - frontend/.next/static
+        - frontend/public
+      cache:
+        - frontend/node_modules
+    run:
+      base: nodejs@22
+      ports:
+        - port: 3000
+          httpSupport: true
+      start: node frontend/.next/standalone/server.js
+      envVariables:
+        NODE_ENV: production
+        PORT: "3000"
+        HOSTNAME: 0.0.0.0

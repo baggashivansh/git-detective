@@ -1,0 +1,95 @@
+{
+  "info": {
+    "name": "Git Detective — Phase 2",
+    "description": "Repository intelligence endpoints. No AI endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "repositoryId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Analyze GitHub Repository",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sourceType\": \"GITHUB\",\n  \"source\": \"https://github.com/octocat/Hello-World\"\n}"
+        },
+        "url": "{{baseUrl}}/repositories/analyze"
+      }
+    },
+    {
+      "name": "List Repositories",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories"
+      }
+    },
+    {
+      "name": "Get Repository",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}"
+      }
+    },
+    {
+      "name": "Repository Tree",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/tree"
+      }
+    },
+    {
+      "name": "Contributors",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/contributors"
+      }
+    },
+    {
+      "name": "Languages",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/languages"
+      }
+    },
+    {
+      "name": "Commits",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/commits?page=0&size=50"
+      }
+    },
+    {
+      "name": "Statistics",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/statistics"
+      }
+    },
+    {
+      "name": "Packages",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/packages"
+      }
+    },
+    {
+      "name": "Classes",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/classes"
+      }
+    },
+    {
+      "name": "Search",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/repositories/{{repositoryId}}/search?q=Demo"
+      }
+    }
+  ]
+}
