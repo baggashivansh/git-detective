@@ -1,0 +1,20 @@
+# Import into existing project: git-detective-app
+# Zerops → Import services → paste this YAML
+#
+# BEFORE importing:
+# 1. Open backend service → copy its public subdomain URL (https://...)
+# 2. Replace REPLACE_WITH_BACKEND_PUBLIC_URL below (no trailing slash)
+#
+# Example:
+#   NEXT_PUBLIC_API_BASE_URL: https://backend-xxxx.prg1.zerops.app
+
+services:
+  - hostname: frontend
+    type: nodejs@22
+    enableSubdomainAccess: true
+    buildFromGit: https://github.com/baggashivansh/git-detective
+    priority: 1
+    envSecrets:
+      NODE_ENV: production
+      PORT: "3000"
+      NEXT_PUBLIC_API_BASE_URL: REPLACE_WITH_BACKEND_PUBLIC_URL
