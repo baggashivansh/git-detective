@@ -26,8 +26,8 @@ export function FeaturesSection() {
           Built for investigation, not summaries
         </h2>
         <p className="mt-3 text-muted-foreground">
-          Phase 1 establishes the product shell. Investigation capabilities arrive
-          in later phases.
+          Analyze repositories, run deterministic investigations, and ask an
+          evidence-backed assistant — without invented answers.
         </p>
       </div>
       <div className="grid gap-4 md:grid-cols-3">

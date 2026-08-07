@@ -29,10 +29,12 @@ zerops:
       base: nodejs@22
       buildCommands:
         - cd frontend && npm ci && npm run build
+        # Next standalone expects static + public inside the standalone folder
+        - mkdir -p frontend/.next/standalone/.next
+        - cp -R frontend/.next/static frontend/.next/standalone/.next/static
+        - cp -R frontend/public frontend/.next/standalone/public
       deployFiles:
         - frontend/.next/standalone
-        - frontend/.next/static
-        - frontend/public
       cache:
         - frontend/node_modules
     run:
