@@ -39,6 +39,12 @@ Testing strategy for Git Detective **v1.0.0**.
 | `TimelineEngineTest` | Unit | Chronological event construction |
 | `InvestigationReportExporterTest` | Unit | JSON / Markdown / HTML export |
 | `InvestigationControllerTest` | Slice | Investigation HTTP contracts |
+| `IncidentReportCompilerTest` | Unit | Timeline, ownership, blast radius, insufficient evidence |
+| `IncidentScopeResolverTest` | Unit | Question → indexed target / default branch |
+| `IncidentReportSynthesizerTest` | Unit | Hallucinated citations discarded |
+| `IncidentInvestigationServiceTest` | Unit | Reuse completed analysis/report; analyzing wait |
+| `IncidentInvestigationControllerTest` | Slice | Incident HTTP contracts |
+| `IncidentInvestigationIntegrationTest` | Integration | Local repo + question → report |
 
 ## Evidence Engine tests
 
@@ -85,13 +91,14 @@ Integration tests require Docker because Testcontainers starts PostgreSQL.
 
 ## Frontend
 
-There is no frontend unit-test runner in v1.0. Quality gates:
-
 ```bash
 cd frontend
+npm test
 npm run lint
 npm run build
 ```
+
+`npm test` runs Node's built-in test runner against incident-flow helpers (form gating, phase mapping, continue rules).
 
 Accessibility is verified via skip links, ARIA on interactive controls, and `prefers-reduced-motion` support.
 

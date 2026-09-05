@@ -33,6 +33,23 @@ class RateLimitFilterTest {
     }
 
     @Test
+    @DisplayName("rate-limits incident investigation POSTs")
+    void limitsIncidentInvestigations() throws Exception {
+        RateLimitFilter filter = new RateLimitFilter(1, 60);
+        MockHttpServletRequest request =
+                new MockHttpServletRequest("POST", "/incident-investigations");
+        request.setRemoteAddr("198.51.100.10");
+
+        MockHttpServletResponse first = new MockHttpServletResponse();
+        filter.doFilter(request, first, new MockFilterChain());
+        assertThat(first.getStatus()).isNotEqualTo(429);
+
+        MockHttpServletResponse second = new MockHttpServletResponse();
+        filter.doFilter(request, second, new MockFilterChain());
+        assertThat(second.getStatus()).isEqualTo(429);
+    }
+
+    @Test
     @DisplayName("does not rate-limit GET health")
     void skipsGet() throws Exception {
         RateLimitFilter filter = new RateLimitFilter(1, 60);

@@ -76,6 +76,45 @@ public class PromptBuilder {
         return new PromptPayload(system, developer, evidenceBlock, question, intent);
     }
 
+    /**
+     * Incident-investigator prompt. Same evidence JSON contract as {@link #build} so citation
+     * validation can be reused.
+     */
+    public PromptPayload buildIncident(
+            String rawQuestion, AssistantIntent intent, EvidenceContext context) {
+        PromptPayload base = build(rawQuestion, intent, context);
+        String system =
+                """
+                You are an evidence-grounded software repository investigator.
+                Use only supplied repository evidence.
+                Never invent facts, commits, files, contributors, dependencies, timestamps,
+                ownership, causality, or behavior.
+                Separate facts, strong inferences, and hypotheses.
+                If evidence is insufficient, say so.
+                Never assign personal blame.
+                Every material conclusion must be traceable to evidence.
+                Respond with a single JSON object only (no markdown fences) using keys:
+                answer (string), evidenceIds (array of evidence UUID strings from the context),
+                confidence (integer 0-100), referencedFiles (array of strings),
+                referencedCommits (array of strings), referencedContributors (array of strings),
+                referencedPackages (array of strings).
+                Only cite evidenceIds that appear in the evidence context.
+                If evidence is insufficient, set answer to exactly:
+                The available repository evidence is insufficient to answer this confidently.
+                """;
+        String developer =
+                base.developerInstructions()
+                        + """
+                        Write answer as the investigation finding.
+                        Label material statements as FACT, STRONG INFERENCE, or HYPOTHESIS.
+                        Ownership means code ownership, not personal blame.
+                        Repository timestamps are not deployment or incident clocks.
+                        Do not fabricate deployment or production events.
+                        """;
+        return new PromptPayload(
+                system, developer, base.evidenceContext(), base.userQuestion(), intent);
+    }
+
     public String sanitize(String raw) {
         if (raw == null) {
             return "";

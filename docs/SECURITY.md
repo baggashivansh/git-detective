@@ -19,6 +19,7 @@ Security design for Git Detective **v1.0.0**.
 - In-memory **rate limiting** on expensive POST routes:
   - `/repositories/analyze`
   - `/investigations*`
+  - `/incident-investigations*`
   - `/assistant/*`
   - Defaults: `RATE_LIMIT_MAX_REQUESTS=60`, `RATE_LIMIT_WINDOW_SECONDS=60`
   - Exceeding the limit returns `429` with `Retry-After`

@@ -10,13 +10,19 @@ export default function DashboardPage() {
       <div className="mx-auto flex max-w-3xl flex-col items-start gap-4">
         <h2 className="text-2xl font-semibold tracking-tight">Workspace</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Analyze a repository, open an investigation, then ask the assistant —
-          answers are validated against the Evidence Engine.
+          Start with a repository and a question. The incident investigator
+          analyzes the repo, collects evidence, and returns a cited report.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/repositories"
+            href="/investigate"
             className={cn(buttonVariants({ variant: "default" }))}
+          >
+            Investigate
+          </Link>
+          <Link
+            href="/repositories"
+            className={cn(buttonVariants({ variant: "outline" }))}
           >
             Repositories
           </Link>

@@ -45,7 +45,7 @@ Git Detective turns a Git repository into a structured **investigation platform*
 
 **Zerops stack:** `frontend` (Next.js) · `backend` (Spring Boot) · `db` (PostgreSQL 16)
 
-**Quick demo path:** open the live app → **Repositories** → analyze a **public** GitHub URL → open **Investigations** → ask the **Assistant**.
+**Quick demo path:** open the live app → **Investigate** → paste a **public** GitHub URL and a question → read the evidence-backed report.
 
 Example public repo to try:
 
@@ -387,6 +387,7 @@ Complete list: [`.env.example`](.env.example)
 | Health | `GET /health` | App envelope with version |
 | Repositories | `/repositories` | Analyze + browse + search |
 | Investigations | `/investigations` | Create + slices + report |
+| Incident investigations | `/incident-investigations` | Repo + question → evidence report |
 | Assistant | `/assistant/conversations` | Chat, SSE stream, export |
 | OpenAPI | `/api-docs`, `/swagger-ui.html` | Interactive docs |
 | Actuator | `/actuator/health`, `/actuator/metrics` | Ops |
@@ -505,6 +506,7 @@ AI_STUB_MODE=true
 
 | Document | Audience |
 |----------|----------|
+| [docs/ROTE_PLAY.md](docs/ROTE_PLAY.md) | Repo + question incident play |
 | [docs/JUDGING_GUIDE.md](docs/JUDGING_GUIDE.md) | Hackathon judges (5 minutes) |
 | [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md) | Live demo script |
 | [docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md) | System view |

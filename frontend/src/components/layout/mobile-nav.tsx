@@ -13,6 +13,7 @@ import {
 
 const links = [
   { href: "/dashboard", label: "Overview" },
+  { href: "/investigate", label: "Investigate" },
   { href: "/investigations", label: "Investigations" },
   { href: "/repositories", label: "Repositories" },
   { href: "/assistant", label: "Assistant" },

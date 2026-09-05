@@ -45,8 +45,8 @@ export function HeroSection() {
           transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : 0.18 }}
           className="mt-8 flex flex-wrap items-center gap-3"
         >
-          <Button size="lg" render={<Link href="/dashboard" />}>
-            Enter workspace
+          <Button size="lg" render={<Link href="/investigate" />}>
+            Investigate a repository
           </Button>
           <Button
             variant="outline"

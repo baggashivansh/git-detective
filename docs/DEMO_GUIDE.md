@@ -27,17 +27,18 @@ Leave `AI_STUB_MODE=true` for offline demos (deterministic evidence-backed answe
 ## Demo script (8–10 minutes)
 
 1. **Landing** — Open `/`. Frame the product: investigation, not summarization.
-2. **Analyze** — Go to `/repositories`. Analyze a small public GitHub Java/Spring repo (or a LOCAL path on the server).
-3. **Poll status** — Open the repository dashboard; wait for `COMPLETED`.
-4. **Browse knowledge** — Show tree, contributors, packages, classes, search.
-5. **Investigate** — Create an investigation on a class or file. Walk Timeline, Ownership, Impact, Relationships, Hotspots, Report.
-6. **Assistant** — Open the Assistant tab (or `/assistant?investigationId=`). Ask:
+2. **Incident investigator** — Go to `/investigate`. Paste a public GitHub URL and a new question (for example, “Why did authentication become risky after recent changes?”). Watch Analyze → Evidence → Investigate → Validate → Report. Claims are labeled FACT / STRONG INFERENCE / HYPOTHESIS.
+3. **Analyze** — Or go to `/repositories`. Analyze a small public GitHub Java/Spring repo (or a LOCAL path on the server).
+4. **Poll status** — Open the repository dashboard; wait for `COMPLETED`.
+5. **Browse knowledge** — Show tree, contributors, packages, classes, search.
+6. **Target investigation** — Create an investigation on a class or file. Walk Timeline, Ownership, Impact, Relationships, Hotspots, Report.
+7. **Assistant** — Open the Assistant tab (or `/assistant?investigationId=`). Ask:
    - “Who owns this module?”
    - “Explain the blast radius.”
    - “What changed recently?”
-7. **Evidence panel** — Expand citations; every answer is validated against Evidence Engine IDs.
-8. **Negative demo** — Ask “Open a PR that fixes this” → expect `UNSUPPORTED_QUESTION` / clear rejection.
-9. **Export** — Export investigation report (Markdown) and assistant conversation.
+8. **Evidence panel** — Expand citations; every answer is validated against Evidence Engine IDs.
+9. **Negative demo** — Ask “Open a PR that fixes this” → expect `UNSUPPORTED_QUESTION` / clear rejection.
+10. **Export** — Export investigation report (Markdown) and assistant conversation.
 
 ## Suggested demo repositories
 

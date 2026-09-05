@@ -46,6 +46,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         }
         return !(path.startsWith("/repositories/analyze")
                 || path.startsWith("/investigations")
+                || path.startsWith("/incident-investigations")
                 || path.startsWith("/assistant/"));
     }
 

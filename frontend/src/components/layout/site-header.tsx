@@ -23,6 +23,9 @@ export function SiteHeader() {
           >
             Architecture
           </Link>
+          <Link href="/investigate" className="transition-colors hover:text-foreground">
+            Investigate
+          </Link>
           <Link href="/dashboard" className="transition-colors hover:text-foreground">
             Dashboard
           </Link>

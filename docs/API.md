@@ -100,6 +100,37 @@ Requires repository `AnalysisStatus.COMPLETED`.
 
 ---
 
+## Incident investigations
+
+Question-driven play: repository + question → analyze → evidence → investigate → validate → report.
+
+Base path: `/incident-investigations`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/incident-investigations` | Start or reuse `{ repository \| repositoryId, investigationQuestion }` |
+| `GET` | `/incident-investigations` | List question-driven investigations |
+| `GET` | `/incident-investigations/{id}` | Status + report when ready |
+| `POST` | `/incident-investigations/{id}/continue` | Advance after analysis completes |
+
+### Start body
+
+```json
+{
+  "repository": "https://github.com/owner/repo",
+  "sourceType": "GITHUB",
+  "investigationQuestion": "Why did authentication become risky after recent changes?"
+}
+```
+
+`repositoryId` may be used instead of `repository` when analysis already completed. Completed analyses are reused; the same question on the same repository returns the stored report.
+
+`phase`: `ANALYZING` | `INVESTIGATING` | `VALIDATING` | `COMPLETED` | `FAILED`
+
+`report` includes finding, confidence, why, timeline, key evidence, affected files/components, code ownership, blast radius, risk factors, next actions, limitations, and claims labeled `FACT` | `STRONG_INFERENCE` | `HYPOTHESIS`.
+
+---
+
 ## Assistant
 
 Base path: `/assistant`  
@@ -144,7 +175,7 @@ Includes: `answer`, `evidenceUsed[]`, `confidence`, supporting artifacts, refere
 
 ## Rate limiting
 
-POST requests to `/repositories/analyze`, `/investigations*`, and `/assistant/*` are rate-limited (default 60 / 60s). Exceeding the limit returns `429` with `Retry-After`.
+POST requests to `/repositories/analyze`, `/investigations*`, `/incident-investigations*`, and `/assistant/*` are rate-limited (default 60 / 60s). Exceeding the limit returns `429` with `Retry-After`.
 
 ---
 

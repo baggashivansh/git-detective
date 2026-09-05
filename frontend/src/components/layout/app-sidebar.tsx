@@ -2,11 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Search, GitBranch, Settings, Bot } from "lucide-react";
+import {
+  LayoutDashboard,
+  Search,
+  GitBranch,
+  Settings,
+  Bot,
+  ShieldAlert,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigationItems = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/investigate", label: "Investigate", icon: ShieldAlert },
   { href: "/investigations", label: "Investigations", icon: Search },
   { href: "/repositories", label: "Repositories", icon: GitBranch },
   { href: "/assistant", label: "Assistant", icon: Bot },
@@ -32,6 +40,8 @@ export function AppSidebar() {
           const Icon = item.icon;
           const isActive =
             pathname === item.href ||
+            (item.label === "Investigate" &&
+              pathname.startsWith("/investigate")) ||
             (item.label === "Investigations" &&
               pathname.startsWith("/investigations")) ||
             (item.label === "Repositories" &&

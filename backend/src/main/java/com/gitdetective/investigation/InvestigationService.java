@@ -80,20 +80,7 @@ public class InvestigationService {
 
     @Transactional
     public InvestigationSummaryResponse create(CreateInvestigationRequest request) {
-        CodeRepository repository =
-                codeRepositoryJpaRepository
-                        .findById(request.repositoryId())
-                        .orElseThrow(
-                                () ->
-                                        new ResourceNotFoundException(
-                                                "Repository not found: " + request.repositoryId()));
-        if (repository.getStatus() != AnalysisStatus.COMPLETED) {
-            throw new RepositoryAnalysisException(
-                    HttpStatus.CONFLICT,
-                    "REPOSITORY_NOT_READY",
-                    "Repository analysis must be COMPLETED before investigation");
-        }
-
+        CodeRepository repository = requireCompletedRepository(request.repositoryId());
         InvestigationEntity investigation =
                 investigationJpaRepository.save(
                         InvestigationEntity.builder()
@@ -103,7 +90,47 @@ public class InvestigationService {
                                 .targetLabel(request.targetRef())
                                 .status(InvestigationStatus.RUNNING)
                                 .build());
+        return runEngines(repository, investigation, request);
+    }
 
+    @Transactional
+    public InvestigationSummaryResponse runQueued(
+            UUID investigationId, CreateInvestigationRequest request) {
+        InvestigationEntity investigation = require(investigationId);
+        if (investigation.getStatus() == InvestigationStatus.COMPLETED
+                || investigation.getStatus() == InvestigationStatus.RUNNING) {
+            return assembler.toSummary(investigation);
+        }
+        CodeRepository repository = requireCompletedRepository(investigation.getRepositoryId());
+        investigation.setTargetType(request.targetType());
+        investigation.setTargetRef(request.targetRef());
+        investigation.setTargetLabel(request.targetRef());
+        investigation.setStatus(InvestigationStatus.RUNNING);
+        investigationJpaRepository.save(investigation);
+        return runEngines(repository, investigation, request);
+    }
+
+    private CodeRepository requireCompletedRepository(UUID repositoryId) {
+        CodeRepository repository =
+                codeRepositoryJpaRepository
+                        .findById(repositoryId)
+                        .orElseThrow(
+                                () ->
+                                        new ResourceNotFoundException(
+                                                "Repository not found: " + repositoryId));
+        if (repository.getStatus() != AnalysisStatus.COMPLETED) {
+            throw new RepositoryAnalysisException(
+                    HttpStatus.CONFLICT,
+                    "REPOSITORY_NOT_READY",
+                    "Repository analysis must be COMPLETED before investigation");
+        }
+        return repository;
+    }
+
+    private InvestigationSummaryResponse runEngines(
+            CodeRepository repository,
+            InvestigationEntity investigation,
+            CreateInvestigationRequest request) {
         try {
             InvestigationTarget target =
                     targetResolver.resolve(

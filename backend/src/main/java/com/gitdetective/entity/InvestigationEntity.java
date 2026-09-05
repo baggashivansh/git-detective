@@ -48,6 +48,12 @@ public class InvestigationEntity {
     @Column(columnDefinition = "TEXT")
     private String summary;
 
+    @Column(columnDefinition = "TEXT")
+    private String question;
+
+    @Column(name = "incident_report", columnDefinition = "TEXT")
+    private String incidentReport;
+
     @Column(name = "bus_factor_score")
     private Integer busFactorScore;
 

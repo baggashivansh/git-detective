@@ -42,4 +42,35 @@ class PromptBuilderTest {
         assertThat(payload.toProviderMessagesDocument()).contains("USER:");
         assertThat(payload.toProviderMessagesDocument()).doesNotContain("api-key");
     }
+
+    @Test
+    @DisplayName("builds an incident prompt that forbids invented facts")
+    void buildsIncidentPrompt() {
+        EvidenceContext context =
+                new EvidenceContext(
+                        "inv",
+                        "repo",
+                        "CLASS",
+                        "Demo",
+                        "overview",
+                        "[id=11111111-1111-1111-1111-111111111111 type=FILE] demo",
+                        List.of(),
+                        List.of("abc"),
+                        List.of("a.java"),
+                        List.of("com.example"),
+                        List.of("ada@example.com"),
+                        95);
+
+        var payload =
+                builder.buildIncident(
+                        "Why did authentication become risky after recent changes?",
+                        AssistantIntent.AUTHENTICATION,
+                        context);
+
+        assertThat(payload.systemPrompt())
+                .contains("evidence-grounded software repository investigator");
+        assertThat(payload.systemPrompt()).contains("Never invent facts");
+        assertThat(payload.developerInstructions()).contains("not personal blame");
+        assertThat(payload.developerInstructions()).contains("not deployment");
+    }
 }

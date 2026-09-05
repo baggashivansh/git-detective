@@ -35,12 +35,12 @@ Repo → Intelligence → Investigation → Evidence → Assistant → UI
 
 ## Judge walkthrough (5 minutes)
 
-1. Open landing → Enter workspace
-2. Show a completed repository analysis (tree / packages / search)
-3. Open an investigation → Ownership + Impact + Relationships
-4. Ask the assistant one question → expand evidence citations
-5. Optionally ask an unsupported action (“create a PR”) → show rejection
-6. Point to docs: this guide, [DEMO_GUIDE.md](DEMO_GUIDE.md), [SYSTEM_ARCHITECTURE.md](SYSTEM_ARCHITECTURE.md)
+1. Open landing → **Investigate a repository**
+2. Paste a public GitHub URL and a new question → Investigate
+3. Watch Analyze → Collect evidence → Investigate → Validate → Report
+4. Confirm claims are labeled FACT / STRONG INFERENCE / HYPOTHESIS
+5. Optionally open a target-based investigation + assistant citations
+6. Point to [ROTE_PLAY.md](ROTE_PLAY.md) and [DEMO_GUIDE.md](DEMO_GUIDE.md)
 
 ## Evaluation checklist
 
@@ -61,6 +61,7 @@ Repo → Intelligence → Investigation → Evidence → Assistant → UI
 | [EVIDENCE_ENGINE.md](EVIDENCE_ENGINE.md) | Why AI cannot invent |
 | [AI_ASSISTANT.md](AI_ASSISTANT.md) | Intent → validate → stream |
 | [API.md](API.md) | HTTP surface |
+| [ROTE_PLAY.md](ROTE_PLAY.md) | Repo + question playbook |
 
 ---
 
